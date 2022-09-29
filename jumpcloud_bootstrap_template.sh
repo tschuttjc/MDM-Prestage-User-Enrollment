@@ -1149,6 +1149,7 @@ if [[ ! -f $DEP_N_GATE_DONE ]]; then
     ACTIVE_USER=$( ls -l /dev/console | awk '{print $3}' )
     echo "$(date "+%Y-%m-%d %H:%M:%S"): Waiting for ${ACTIVE_USER} user to logout... " >>"$DEP_N_DEBUG"
     FINDER_PROCESS=$(pgrep -l "Finder")
+    launchctl bootout user/$(id -u ${ACTIVE_USER})
     while [ "$FINDER_PROCESS" != "" ]; do
         echo "$(date "+%Y-%m-%d %H:%M:%S"): Finder process found. Waiting until session end" >>"$DEP_N_DEBUG"
         sleep 1
